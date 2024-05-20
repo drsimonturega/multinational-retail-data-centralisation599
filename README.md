@@ -16,7 +16,7 @@ All retriived data frames were renamed to ```df_tran``` ready to be added to ref
 
  ![Alt](/clean_na.png "clean_na_in_data()")
 
-A ```if __name__ == "__main__":``` statement was added, to make the fuctions with in accessabe and tidy up code. Diagnostic print staments were removed.
+A ```if __name__ == "__main__":``` statement was added, to make the fuctions with in accessabe and tidy up code. Diagnostic print staments were removed. the use of self was minimised to varibles that are unique to each class instance and shared between functions.
 
 ## Installation instructions
 DB set-up
