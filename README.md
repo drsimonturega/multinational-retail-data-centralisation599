@@ -10,6 +10,12 @@ In an effort to become more data-driven, your organisation would like to make it
 Your first goal will be to produce a system that stores the current company data in a database so that it's accessed from one centralised location and acts as a single source of truth for sales data.
 
 You will then query the database to get up-to-date metrics for the business.
+
+### Refactoring code
+All retriived data frames were renamed to ```df_tran``` ready to be added to refactored data cleaning code. Data cleaning was refactored eliminate code duplication with a clean_na_in_data() function.
+
+ ![Alt](/clean_na.png "clean_na_in_data()")
+
 ## Installation instructions
 DB set-up
 ## Usage instructions
