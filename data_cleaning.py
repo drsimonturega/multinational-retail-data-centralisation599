@@ -1,19 +1,26 @@
 # Methods to clean data from data sources
 
+# Imported libaries
 from data_extraction import DataExtractor
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 
 class DataCleaning:
 
     # class constructor
     def __init__(self):
-        #self.df_users = df_user
-
-        #self.clean_user_data()
+        """Inintailises the class"""
         return
     
     def clean_na_in_data(self):
+        """
+        Remove na data with numerical analysis
+
+        Keyword arguments:
+        self -- variables that store information unique to each 
+        object created from the class
+        """
         # Remove na data with numerical analysis
         print("percentage of missing values in each column:")
         print(self.df_tran.isna().mean() * 100)
@@ -23,6 +30,13 @@ class DataCleaning:
         return self.df_clean
 
     def clean_user_data(self):
+        """
+        Cleans user data
+
+        Keyword arguments:
+        self -- variables that store information unique to each 
+        object created from the class
+        """
         # errors with dates
         inv_cols = ['join_date', 'date_of_birth']
         for c_cols in inv_cols:
@@ -38,6 +52,13 @@ class DataCleaning:
         return self.df_clean
     
     def clean_card_data(self):
+        """
+        Cleans card data
+
+        Keyword arguments:
+        self -- variables that store information unique to each 
+        object created from the class
+        """
         # errors with dates
         inv_cols = ['date_payment_confirmed']
         for c_cols in inv_cols:
@@ -52,31 +73,45 @@ class DataCleaning:
         return self.df_clean
 
     def clean_orders_data(self):
-        # errors with dates
-        #self.df_users = self.df_users.set_index('index', inplace = True)
-        #print(self.df_users.head())
+        """
+        Cleans orders data
+
+        Keyword arguments:
+        self -- variables that store information unique to each 
+        object created from the class
+        """
         print("percentage of missing values in each column:")
         print(self.df_tran.isna().mean() * 100)
         self.df_clean = self.df_tran.drop(columns=['first_name', 'last_name', '1', 'index', 'level_0'])
         print("percentage of missing values in each column:")
-        print(self.df_clean.isna().mean() * 100) 
-        print(self.df_tran.head())                 
+        print(self.df_clean.isna().mean() * 100)                 
         return self.df_clean
 
     def clean_store_data(self):
-        self.df_tran = self.df_tran.dropna(axis = 1)
+        """
+        Cleans store data
+
+        Keyword arguments:
+        self -- variables that store information unique to each 
+        object created from the class
+        """
         inv_cols = ['opening_date']
         for c_cols in inv_cols:
             self.df_tran[c_cols] = pd.to_datetime(self.df_tran[c_cols], errors='coerce')
-        self.df_tran = self.df_tran.dropna(axis = 0)
-        print("percentage of missing values in each column:")
-        print(self.df_tran.isna().mean() * 100)
+        
         n_unique = self.df_tran['store_code'].nunique()
         print(f'Total records {len(self.df_tran)}, unique card numbers {n_unique}')
         self.df_clean = self.df_tran
         return self.df_clean
     
     def convert_product_weights(self):
+        """
+        Converst products weights from g and ml to kg
+
+        Keyword arguments:
+        self -- variables that store information unique to each 
+        object created from the class
+        """
         # this may need work
         temp = pd.DataFrame()
         temp['mul_no'] = []
@@ -108,4 +143,3 @@ class DataCleaning:
     
     
     
-#test = DataCleaning()
