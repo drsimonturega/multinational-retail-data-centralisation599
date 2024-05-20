@@ -26,16 +26,16 @@ class DataExtractor:
         for tab in self.tab_lst:
             name = (f'df_{tb_name}')
             if tb_name in tab:
-                self.df_users = pd.read_sql_table(tab, self.engine)
+                self.df_tran = pd.read_sql_table(tab, self.engine)
                 break       
-        return  self.df_users
+        return  self.df_tran
     
     def retrieve_pdf_data(self, pdf_lnk):
-        self.df_pdf = tabula.read_pdf(pdf_lnk, output_format = 'dataframe', pages='all')
-        self.df_pdf = pd.DataFrame(self.df_pdf[0])
-        print(self.df_pdf.head())
-        print(self.df_pdf.info())
-        return self.df_pdf
+        self.df_tran = tabula.read_pdf(pdf_lnk, output_format = 'dataframe', pages='all')
+        self.df_tran = pd.DataFrame(self.df_tran[0])
+        print(self.df_tran.head())
+        print(self.df_tran.info())
+        return self.df_tran
     
     def list_number_of_stores(self):
         url = 'https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores'
@@ -54,30 +54,30 @@ class DataExtractor:
             self.stores_trans = self.stores_trans.json()
             col_lst = self.stores_trans.keys()
             val_lst = self.stores_trans.values()
-            self.df_trans = pd.DataFrame([val_lst])
-            self.df_trans.columns = col_lst
-            self.df_stores = pd.concat([self.df_stores, self.df_trans])
-        self.df_stores.set_index('index', inplace = True)
-        print(self.df_stores.head())
-        return self.df_stores
+            self.df_tran = pd.DataFrame([val_lst])
+            self.df_tran.columns = col_lst
+            self.df_tran = pd.concat([self.df_stores, self.df_tran])
+        self.df_tran.set_index('index', inplace = True)
+        print(self.df_tran.head())
+        return self.df_tran
     
     def extract_from_s3(self):
         s3 = boto3.client('s3')
         response = s3.get_object(Bucket='data-handling-public', Key='products.csv')
-        self.df_prod = pd.read_csv(response.get("Body"))
-        col_lst = self.df_prod.columns.values.tolist()
+        self.df_tran = pd.read_csv(response.get("Body"))
+        col_lst = self.df_tran.columns.values.tolist()
         col_lst[0] = 'index'
-        self.df_prod.columns = col_lst
-        self.df_prod.set_index('index', inplace = True)
-        print(self.df_prod.head())
-        return self.df_prod
+        self.df_tran.columns = col_lst
+        self.df_tran.set_index('index', inplace = True)
+        print(self.df_tran.head())
+        return self.df_tran
     
     def extract_dates_s3(self):
         s3 = boto3.client('s3')
         response = s3.get_object(Bucket='data-handling-public', Key='date_details.json')
-        self.df_dates = response["Body"].read().decode()
-        self.df_dates = pd.read_json(self.df_dates)
-        print(self.df_dates.head())
-        return self.df_dates
+        self.df_tran = response["Body"].read().decode()
+        self.df_tran = pd.read_json(self.df_tran)
+        print(self.df_tran.head())
+        return self.df_tran
 
 
