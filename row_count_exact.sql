@@ -1,0 +1,1 @@
+SELECT count(*) AS exact_count FROM dim_store_details;
