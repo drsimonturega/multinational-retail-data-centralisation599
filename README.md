@@ -23,10 +23,10 @@ DB set-up data was exctracted and cleaned.
 
 A star-based schema was constructed.
 ## Usage instructions
-add queries
+Querying the data, is achived using sql scripts M4T1.sql to M4T9.sql
 ## File structure of the project
-jyper note books
-
+python scripts
+jypter note books
 SQL scripts
 ## License information
 
